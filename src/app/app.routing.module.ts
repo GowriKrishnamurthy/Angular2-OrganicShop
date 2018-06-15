@@ -12,6 +12,8 @@ import { AdminProductsComponent } from './admin/admin-products/admin-products.co
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { LoginComponent } from './Auth/login/login.component';
 import { AuthGuard } from './Auth/auth-guard.service';
+import { AdminAuthGuard } from './Auth/admin-auth-guard.service';
+import { ErrorComponent } from './Auth/error.component';
 
 const appRoutes: Routes = [
     // Routes acccessible to all including anonymous users
@@ -19,15 +21,24 @@ const appRoutes: Routes = [
     { path: 'products', component: ProductsComponent },
     { path: 'shopping-cart', component: ShoppingCartComponent },
     { path: 'login', component: LoginComponent },
-    
+    { path: 'error', component: ErrorComponent, data: { errorMessage: 'Permission denied!' } },
+    // { path: 'error', component: ErrorComponent },
     // Routes protected by Auth guard - only acccessible to logged in users
     { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuard] },
     { path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard] },
     { path: 'my/orders', component: OrderSuccessComponent, canActivate: [AuthGuard] },
-    
+
     // Routes for admin
-    { path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard] },
-    { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard] }
+    {
+        path: 'admin/products',
+        component: AdminProductsComponent,
+        canActivate: [AdminAuthGuard, AuthGuard]
+    },
+    {
+        path: 'admin/orders',
+        component: AdminOrdersComponent,
+        canActivate: [AdminAuthGuard, AuthGuard]
+    }
 ];
 
 
