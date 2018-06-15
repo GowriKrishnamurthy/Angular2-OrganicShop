@@ -15,11 +15,13 @@
       </li>
 
       <!-- Display login link only if no user logged in -->
-      <li *ngIf="!currentUser" class="nav-item">
-        <a class="nav-link" routerLink="/login">Login</a>
-      </li>
+      <ng-template #anonymousUser>
+          <li class="nav-item">
+              <a class="nav-link" (click)="onLogin()">Login</a>
+            </li>      
+      </ng-template>
       <!-- Display the drop down only if a valid user is logged in -->
-      <li ngbDropdown *ngIf="currentUser" class="nav-item dropdown">
+      <li ngbDropdown *ngIf="currentUser$ | async as currentUser;else anonymousUser" class="nav-item dropdown">
         <a ngbDropdownToggle class="nav-link dropdown-toggle"  routerLink="/" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
           aria-expanded="false">{{currentUser.displayName}}</a>
         <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
