@@ -21,7 +21,6 @@ export class AuthService {
     //Login with Google
     this.angularFireAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
     this.router.navigate(['/']);
-
   }
   logout() {
     this.angularFireAuth.auth.signOut();
