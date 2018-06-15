@@ -18,9 +18,9 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { AppRoutingModule } from './app.routing.module';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './Auth/auth.service';
 import { LoginComponent } from './Auth/login/login.component';
-
+import { AuthGuard } from './Auth/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -44,7 +44,7 @@ import { LoginComponent } from './Auth/login/login.component';
     NgbModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [AuthService],
+  providers: [AuthService,AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

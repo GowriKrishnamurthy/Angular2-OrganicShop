@@ -11,19 +11,25 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
 import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
 import { LoginComponent } from './Auth/login/login.component';
+import { AuthGuard } from './Auth/auth-guard.service';
 
 const appRoutes: Routes = [
+    // Routes acccessible to all including anonymous users
     { path: '', component: HomeComponent },
     { path: 'products', component: ProductsComponent },
     { path: 'shopping-cart', component: ShoppingCartComponent },
-    { path: 'check-out', component: CheckOutComponent },
-    { path: 'order-success', component: OrderSuccessComponent },
-    { path: 'my/orders', component: OrderSuccessComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'admin/products', component: AdminProductsComponent },
-    { path: 'admin/orders', component: AdminOrdersComponent }
-  ];
-  
+    
+    // Routes protected by Auth guard - only acccessible to logged in users
+    { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuard] },
+    { path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard] },
+    { path: 'my/orders', component: OrderSuccessComponent, canActivate: [AuthGuard] },
+    
+    // Routes for admin
+    { path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard] },
+    { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard] }
+];
+
 
 @NgModule({
     imports: [RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules })],
