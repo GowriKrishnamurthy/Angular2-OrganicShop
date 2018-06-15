@@ -21,10 +21,11 @@ export class AuthGuard implements CanActivate {
   // if the user is logged in, return true. else navigate to login page
   // subscribe return an observable. To tranform the data to boolean , use map operator.
   // this.authService.currentUser$.subscribe(
-  canActivate(): Observable<boolean> {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean> | Promise<boolean> {
     return this.authService.currentUser$.pipe(map(user => {
       if (user) { return true; }
-      this.router.navigate(['/login']);
+      // To get the URL that users try to access when the AuthGuard kicked in
+      this.router.navigate(['/login'],{queryParams:{returnUrl:state.url}});
       return false;
     }));
   }
