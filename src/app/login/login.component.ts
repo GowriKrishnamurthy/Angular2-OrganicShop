@@ -9,12 +9,12 @@ import { AngularFireAuth } from 'angularfire2/auth';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
   constructor(private angularFireAuth: AngularFireAuth) { }
 
   ngOnInit() {
   }
   onLogin(){
-    this.angularFireAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+    //Login with Google
+    this.angularFireAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider()); 
   }
 }
