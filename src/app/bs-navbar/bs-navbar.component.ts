@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-
-import * as firebase from 'firebase';
-import { AngularFireAuth } from 'angularfire2/auth';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'bs-navbar',
@@ -21,8 +17,7 @@ export class BsNavbarComponent {
       }
     );
     // unsubscribe is requried in this option
-*/
-  // Getting the current logon - Option 2
+ // Getting the current logon - Option 2
   // Change type of user to an Observable as we are fetching 
   // the auth info from Firebase asynchronously
   currentUser$: Observable<firebase.User>;
@@ -30,13 +25,10 @@ export class BsNavbarComponent {
     // We will return an observable which then will be unwrapped using async pipe in template
     this.currentUser$ = this.angularFireAuth.authState;
   }
+*/
+  constructor(private authService:AuthService) { }
 
-  onLogout() {
-    this.angularFireAuth.auth.signOut();
-    this.router.navigate(['/']);
-  }
-  onLogin()
-  {
-    this.router.navigate(['/login']);
+  onLogout(){
+    this.authService.logout();
   }
 }
