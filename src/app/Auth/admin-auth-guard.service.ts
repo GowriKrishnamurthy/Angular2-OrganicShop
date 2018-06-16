@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
@@ -18,8 +18,7 @@ export class AdminAuthGuard implements CanActivate {
     // GetUserFirebaseDb returns firebase object  observable and not the actual app user object.
     // switchMap - transforms from AngularFireObject<AppUser> observable to AppUser object
     // map -  transforms from app user object to boolean after checking if app user is admin 
-    return this.authService.currentUser$
-      .pipe(switchMap(user => this.userService.GetUserFirebaseDb(user.uid).valueChanges()))
+    return this.authService.appUser$
       .pipe(map(appUser => {
         if (appUser.isAdmin)
           return true;

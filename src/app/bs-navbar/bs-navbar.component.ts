@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../Auth/auth.service';
+import { AppUser } from '../Auth/user.model';
 
 @Component({
   selector: 'bs-navbar',
@@ -26,9 +27,13 @@ export class BsNavbarComponent {
     this.currentUser$ = this.angularFireAuth.authState;
   }
 */
-  constructor(private authService:AuthService) { }
-
-  onLogout(){
+  // Fetch App user from Auth service
+  appUser: AppUser;
+  constructor(private authService: AuthService) {
+    this.authService.appUser$.subscribe(appUser => this.appUser = appUser)
+  }
+  onLogout() {
     this.authService.logout();
   }
+
 }
