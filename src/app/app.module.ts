@@ -25,6 +25,7 @@ import { UserService } from './Auth/user.service';
 import { AdminAuthGuard } from './Auth/admin-auth-guard.service';
 import { ErrorComponent } from './Auth/error.component';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { CategoryService } from './category.service';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,7 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
     NgbModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [AuthService,AuthGuard,UserService,AdminAuthGuard],
+  providers: [AuthService,AuthGuard,UserService,AdminAuthGuard,CategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
