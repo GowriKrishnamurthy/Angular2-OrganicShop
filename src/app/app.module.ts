@@ -24,6 +24,7 @@ import { AuthGuard } from './Auth/auth-guard.service';
 import { UserService } from './Auth/user.service';
 import { AdminAuthGuard } from './Auth/admin-auth-guard.service';
 import { ErrorComponent } from './Auth/error.component';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { ErrorComponent } from './Auth/error.component';
     AdminProductsComponent,
     AdminOrdersComponent,
     LoginComponent,
-    ErrorComponent
+    ErrorComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,

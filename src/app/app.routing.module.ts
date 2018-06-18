@@ -14,6 +14,7 @@ import { LoginComponent } from './Auth/login/login.component';
 import { AuthGuard } from './Auth/auth-guard.service';
 import { AdminAuthGuard } from './Auth/admin-auth-guard.service';
 import { ErrorComponent } from './Auth/error.component';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
 
 const appRoutes: Routes = [
     // Routes acccessible to all including anonymous users
@@ -32,6 +33,11 @@ const appRoutes: Routes = [
     {
         path: 'admin/products',
         component: AdminProductsComponent,
+        canActivate: [AdminAuthGuard, AuthGuard]
+    },
+    {
+        path: 'admin/products/new',
+        component: ProductFormComponent,
         canActivate: [AdminAuthGuard, AuthGuard]
     },
     {
