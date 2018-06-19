@@ -21,9 +21,9 @@ export class ProductFormComponent implements OnInit {
     private productService: ProductService,
     private router: Router,
     private activatedRoute: ActivatedRoute) {
-      
+
     this.categories$ = categoryService.getCategories();
-    
+
     // Get current product from active route:
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
     // Take 1 will get only the very first matching product ID
@@ -32,19 +32,29 @@ export class ProductFormComponent implements OnInit {
     if (this.id) {
       this.productService.getProductById(this.id).valueChanges()
         .take(1).subscribe(p => this.currentProduct = p);
-    } 
+    }
   }
 
   onSave(product) {
     // If productID has some value, update. otherwise create new product 
-    if(!this.id)
+    if (!this.id)
       this.productService.createProduct(product);
     else
-      this.productService.updateProduct(this.id,product);
-    
+      this.productService.updateProduct(this.id, product);
+
     this.router.navigate(['/admin/products']);
   }
-  
+
+  onDelete() {
+    // Do nothing when no confirmation from user on deleting this product 
+    if (!confirm('Are you sure you want to delete this product?'))
+      return;
+
+    // Delete the selected product and navigate back to main products page 
+    this.productService.deleteProduct(this.id);
+    this.router.navigate(['/admin/products']);
+  }
+
   ngOnInit() {
   }
 
