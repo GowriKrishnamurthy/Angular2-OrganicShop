@@ -7,15 +7,18 @@ import { AngularFireDatabase } from 'angularfire2/database';
 export class ProductService {
 
   constructor(private db: AngularFireDatabase) { }
-  
-  createProduct(product)
-  {
+
+  createProduct(product) {
     this.db.list('/products').push(product);
   }
 
-  getAllProducts()
-  {
+  getAllProducts() {
     // Get all products from the firebase Db
     return this.db.list('/products').snapshotChanges();
+  }
+
+  getProductById(productId) {
+    // Get all products from the firebase Db based on a product ID
+    return this.db.object('/products/' + productId);
   }
 }

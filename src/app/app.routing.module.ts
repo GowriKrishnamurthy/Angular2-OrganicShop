@@ -30,14 +30,22 @@ const appRoutes: Routes = [
     { path: 'my/orders', component: OrderSuccessComponent, canActivate: [AuthGuard] },
 
     // Routes for admin
-    {
-        path: 'admin/products',
-        component: AdminProductsComponent,
-        canActivate: [AdminAuthGuard, AuthGuard]
-    },
+
+    // order of the routes- More specific routes first..
     {
         path: 'admin/products/new',
         component: ProductFormComponent,
+        canActivate: [AdminAuthGuard, AuthGuard]
+    },
+    {
+        path: 'admin/products/:id',
+        component: ProductFormComponent,
+        canActivate: [AdminAuthGuard, AuthGuard]
+    },
+    // most generic route in the bottom
+    {
+        path: 'admin/products',
+        component: AdminProductsComponent,
         canActivate: [AdminAuthGuard, AuthGuard]
     },
     {

@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../category.service';
 import { ProductService } from '../product.service';
 import { Form } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import 'rxjs/add/operator/take';
 
 @Component({
   selector: 'app-product-form',
@@ -13,11 +14,24 @@ export class ProductFormComponent implements OnInit {
 
   // Observable to get the categories from Firebase Db
   categories$;
+  currentProduct: any = {};
 
   constructor(categoryService: CategoryService,
-      private productService: ProductService,
-      private router:Router) {
+    private productService: ProductService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
+      
     this.categories$ = categoryService.getCategories();
+    
+    // Get current product from active route:
+    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    // Take 1 will get only the very first matching product ID
+    // and the subscription gets closed automatically
+    // no need to implement destroy as we 've used take(1)
+    if (id) {
+      this.productService.getProductById(id).valueChanges()
+        .take(1).subscribe(p => this.currentProduct = p);
+    } 
   }
 
   onSave(product) {
