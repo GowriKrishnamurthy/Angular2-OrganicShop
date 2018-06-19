@@ -1,5 +1,20 @@
 <p>
-    <a routerLink="/admin/products/new" class="btn btn-primary">New Product</a>
+    <a
+        routerLink="/admin/products/new"
+        class="btn btn-primary"
+    >
+        New Product
+    </a>
+</p>
+<p>
+    <!-- New input field to accept filter string -->
+    <input
+        type="text"
+        class="form-control"
+        placeholder="Search..."
+        #filterString
+        (keyup)="filter(filterString.value)"
+    >
 </p>
 <table class="table">
     <thead>
@@ -10,7 +25,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let p of products$ | async">
+        <tr *ngFor="let p of filteredProducts">
             <td>{{ p.payload.val().title }}</td>
             <td>{{ p.payload.val().price }}</td>
             <td>
