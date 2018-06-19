@@ -12,6 +12,7 @@ export class CategoryService {
   getCategories() {
     // get categories from firebase Db and sort values by name
     return this.db.list('/categories',
-      ref => ref.orderByChild('name')).valueChanges();
+      ref => ref.orderByChild('name')).snapshotChanges();
   }
+  
 }
