@@ -15,6 +15,7 @@ export class ProductFormComponent implements OnInit {
   // Observable to get the categories from Firebase Db
   categories$;
   currentProduct: any = {};
+  id;
 
   constructor(categoryService: CategoryService,
     private productService: ProductService,
@@ -24,20 +25,26 @@ export class ProductFormComponent implements OnInit {
     this.categories$ = categoryService.getCategories();
     
     // Get current product from active route:
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.id = this.activatedRoute.snapshot.paramMap.get('id');
     // Take 1 will get only the very first matching product ID
     // and the subscription gets closed automatically
     // no need to implement destroy as we 've used take(1)
-    if (id) {
-      this.productService.getProductById(id).valueChanges()
+    if (this.id) {
+      this.productService.getProductById(this.id).valueChanges()
         .take(1).subscribe(p => this.currentProduct = p);
     } 
   }
 
   onSave(product) {
-    this.productService.createProduct(product);
+    // If productID has some value, update. otherwise create new product 
+    if(!this.id)
+      this.productService.createProduct(product);
+    else
+      this.productService.updateProduct(this.id,product);
+    
     this.router.navigate(['/admin/products']);
   }
+  
   ngOnInit() {
   }
 

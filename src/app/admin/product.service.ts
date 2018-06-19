@@ -21,4 +21,8 @@ export class ProductService {
     // Get all products from the firebase Db based on a product ID
     return this.db.object('/products/' + productId);
   }
+
+  updateProduct(productId,product) {
+    return this.db.object('/products/' + productId).update(product);
+  }
 }
