@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../../category.service';
-import { ProductService } from '../../shared/services/product.service';
 import { Form } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/take';
+import { ProductService } from '../../shared/services/product.service';
 
 @Component({
   selector: 'app-product-form',

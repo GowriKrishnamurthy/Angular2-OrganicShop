@@ -1,4 +1,3 @@
-
 <p>
     <a
         routerLink="/admin/products/new"
@@ -17,7 +16,68 @@
         (keyup)="filter(filterString.value)"
     >
 </p>
-<table class="table">
+
+<div style="margin: auto; margin-bottom: 50px;">
+    <data-table
+        [items]="items"
+        [itemCount]="itemCount"
+        [substituteRows]="false"
+        (reload)="reloadItems($event)"
+    >
+        <data-table-column
+            [property]="'title'"
+            [header]="'Title'"
+            [sortable]="true"
+            [resizable]="true"
+        >
+            <ng-template
+                #dataTableCell
+                let-item="item"
+            >
+                {{item.title }}
+            </ng-template>
+        </data-table-column>
+
+        <data-table-column
+            [property]="'category'"
+            [header]="'Category'"
+            [sortable]="true"
+            [resizable]="true"
+        >
+            <ng-template
+                #dataTableCell
+                let-item="item"
+            >
+                {{ item.category }}
+            </ng-template>
+        </data-table-column>
+
+        <data-table-column
+            [property]="'price'"
+            [header]="'Price'"
+            [sortable]="true"
+            [resizable]="true"
+        >
+            <ng-template
+                #dataTableCell
+                let-item="item"
+            >
+                {{ item.price | currency:'USD':true }}
+            </ng-template>
+        </data-table-column>
+
+        <data-table-column [property]="'key'">
+            <ng-template
+                #dataTableCell
+                let-item="item"
+            >
+                <a [routerLink]="['/admin/products/', item.key]">Edit</a>
+            </ng-template>
+        </data-table-column>
+    </data-table>
+</div>
+
+<!-- <table class="table">
     <thead>
         <tr>
             <th>Title</th>
@@ -30,9 +90,9 @@
             <td>{{ p.payload.val().title }}</td>
             <td>{{ p.payload.val().price }}</td>
             <td>
-                <!-- Pass the key value of the product -->
+                   Pass the key value of the product 
                 <a [routerLink]="['/admin/products/', p.key]">Edit</a>
             </td>
         </tr>
     </tbody>
-</table>
+</table> -->

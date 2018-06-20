@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 
+import { map } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +16,18 @@ export class ProductService {
 
   getAllProducts() {
     // Get all products from the firebase Db
-    return this.db.list('/products').snapshotChanges();
+    return this.db.list('/products/',
+    ref => ref.orderByChild('title')).snapshotChanges()
+      .pipe(map(actions => {
+        return actions
+        .map(action => ({
+          key: action.key,
+          title: action.payload.val().title,
+          imageUrl: action.payload.val().imageUrl,
+          price: action.payload.val().price,
+          category: action.payload.val().category
+        }));
+      }));
   }
 
   getProductById(productId) {
@@ -22,7 +35,7 @@ export class ProductService {
     return this.db.object('/products/' + productId);
   }
 
-  updateProduct(productId,product) {
+  updateProduct(productId, product) {
     return this.db.object('/products/' + productId).update(product);
   }
 
