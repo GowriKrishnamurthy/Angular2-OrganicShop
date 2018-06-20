@@ -1,5 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 
+import { map } from 'rxjs/operators';
+
 import { Subscription } from 'rxjs/Subscription';
 import { ProductService } from '../../shared/services/product.service';
 import { Product } from '../../shared/models/product.model';
@@ -25,17 +27,25 @@ export class AdminProductsComponent implements OnDestroy {
   // Subscription added to listen to any changes in the products list  in any other page
   constructor(private productService: ProductService) {
     this.subscription = this.productService.getAllProducts()
-      .subscribe(products => {
+      .snapshotChanges()
+      .pipe(map(actions => {
+        const newActions = [];
+        actions.forEach(action => {
+          const $key = action.key;
+          const data = { $key, ...action.payload.val() };
+          newActions.push(data);
+        });
+        return newActions;
+      }))
+      .subscribe((products: any[]) => {
         this.products = products;
-
-        // Onload of the page - table source shows products from DB
-        this.initializeTable(this.products);
+        this.initializeTable(products);
       });
   }
 
   // Initialize the table with the products from DB
   private initializeTable(productsFromDB: Product[]) {
-    // this.products = productsFromDB;
+    this.products = productsFromDB;
     this.tableResource = new DataTableResource(productsFromDB);
 
     // Get the first 10 products and show them on the main page.
