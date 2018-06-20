@@ -28,7 +28,7 @@ import { AdminAuthGuard } from './Auth/admin-auth-guard.service';
 import { ErrorComponent } from './Auth/error.component';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
 import { CategoryService } from './category.service';
-import { ProductService } from './admin/product.service';
+import { ProductService } from './shared/services/product.service';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
