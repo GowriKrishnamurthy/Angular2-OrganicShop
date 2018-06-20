@@ -55,6 +55,9 @@ export class ProductFormComponent implements OnInit {
     this.router.navigate(['/admin/products']);
   }
 
+  onCancel(){
+    this.router.navigate(['/admin/products']);
+  }
   ngOnInit() {
   }
 

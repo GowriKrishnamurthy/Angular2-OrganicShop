@@ -14,7 +14,7 @@ export class ProductService {
 
   getAllProducts() {
     // Get all products from the firebase Db
-    return this.db.list('/products').valueChanges();
+    return this.db.list('/products').snapshotChanges();
   }
 
   getProductById(productId) {
