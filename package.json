@@ -11,7 +11,6 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^6.0.3",
     "@angular/common": "^6.0.3",
     "@angular/compiler": "^6.0.3",
     "@angular/core": "^6.0.3",
@@ -21,6 +20,7 @@
     "@angular/platform-browser-dynamic": "^6.0.3",
     "@angular/router": "^6.0.3",
     "@ng-bootstrap/ng-bootstrap": "^2.1.0",
+    "angular5-data-table": "^1.0.2",
     "angularfire2": "^5.0.0-rc.10",
     "bootstrap": "^4.1.1",
     "core-js": "^2.5.4",
