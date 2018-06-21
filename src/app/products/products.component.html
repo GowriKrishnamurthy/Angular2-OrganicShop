@@ -1,3 +1,20 @@
-<p>
-  products works!
-</p>
+<div class="row">
+  <!-- Products section -->
+  <!-- Bootstrap component : Grid - Equal-width multi-row -->
+  <div class="row">
+    <ng-container *ngFor="let product of products$ | async; let i = index">
+      <div class="col">
+        <div class="card" style="width: 15rem;">
+          <img class="card-img-top" [src]="product.imageUrl" alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title">{{ product.title }}</h4>
+            <p class="card-text">{{ product.price | currency:'USD':true }}</p>
+            <a href="#" class="btn btn-primary">Add to Cart</a>
+          </div>
+        </div>
+      </div>
+      <!-- line break added after every 2 items -->
+      <div *ngIf="(i + 1) % 2 === 0" class="w-100"></div>
+    </ng-container>
+  </div>
+</div>
