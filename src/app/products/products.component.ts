@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ProductService } from '../shared/services/product.service';
+import { CategoryService } from '../shared/services/category.service';
 
 @Component({
   selector: 'products',
@@ -9,8 +10,11 @@ import { ProductService } from '../shared/services/product.service';
 export class ProductsComponent {
 
   products$;
+  categories$;
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService,
+    private categoryService: CategoryService) {
     this.products$ = this.productService.getAllProducts().valueChanges();
+    this.categories$ = this.categoryService.getCategories();
   }
 }
