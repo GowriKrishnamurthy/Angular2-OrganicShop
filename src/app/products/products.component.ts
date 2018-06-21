@@ -4,6 +4,9 @@ import { CategoryService } from '../shared/services/category.service';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../shared/models/product.model';
 
+import 'rxjs/add/operator/switchMap';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
+
 @Component({
   selector: 'products',
   templateUrl: './products.component.html',
@@ -22,11 +25,12 @@ export class ProductsComponent {
     // Get all the products from Db and assign to this.products
     this.productService.getAllProducts()
       .valueChanges()
-      .subscribe((products: any[]) => {
+      .switchMap((products: any[]) => {
         this.products = products;
-
         // Get the category selected from the active route's query param
-        this.activatedRoute.queryParamMap.subscribe(
+        return activatedRoute.queryParamMap;
+      })
+      .subscribe(
           params => {
             this.selectedCategory = params.get('category');
 
@@ -37,8 +41,7 @@ export class ProductsComponent {
                 ? this.products.filter(p => p.category === this.selectedCategory)
                 : this.products;
           });
-      });
-
+      
     this.categories$ = this.categoryService.getCategories();
   }
 }
