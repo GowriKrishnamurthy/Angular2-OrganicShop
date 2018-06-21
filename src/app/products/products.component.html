@@ -2,25 +2,34 @@
 
   <!-- Categories section: spans up to 3 column width -->
   <div class="col-3">
-    <ul class="list-group">
-      <li *ngFor="let c of categories$ | async" class="list-group-item">
+    <div class="list-group">
+      <a *ngFor="let c of categories$ | async" 
+        [queryParams]="{category:c.key}" 
+        class="list-group-item list-group-item-action"
+        routerLink="/" 
+        [class.active]="selectedCategory === c.key"
+        >
         {{ c.payload.val().name }}
-      </li>
-    </ul>
+      </a>
+    </div>
   </div>
 
   <!-- Products section : remaining 9 col width -->
   <div class="col-9">
     <!-- Bootstrap component : Grid - Equal-width multi-row -->
     <div class="row">
-      <ng-container *ngFor="let product of products$ | async; let i = index">
+      <ng-container *ngFor="let product of filteredProducts; let i = index">
         <div class="col">
           <div class="card" style="width: 15rem;">
             <img class="card-img-top" [src]="product.imageUrl" alt="Card image cap">
             <div class="card-body">
               <h4 class="card-title">{{ product.title }}</h4>
-              <p class="card-text">{{ product.price | currency:'USD':true }}</p>
-              <a href="#" class="btn btn-primary">Add to Cart</a>
+              <p class="card-text">
+                {{ product.price | currency:'USD':true }}
+              </p>
+              <a href="#" class="btn btn-primary">
+                Add to Cart
+              </a>
             </div>
           </div>
         </div>
