@@ -31,6 +31,7 @@ import { CategoryService } from './shared/services/category.service';
 import { ProductService } from './shared/services/product.service';
 import { FormsModule } from '@angular/forms';
 import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductCardComponent } from './shared/components/product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { ProductFilterComponent } from './products/product-filter/product-filter
     LoginComponent,
     ErrorComponent,
     ProductFormComponent,
-    ProductFilterComponent
+    ProductFilterComponent,
+    ProductCardComponent
   ],
   imports: [
     BrowserModule,

@@ -91,7 +91,12 @@
                     <div *ngIf="imageUrl.errors.url">Please enter a valid URL.</div>
                 </div>
             </div>
-            <button class="btn btn-primary" [style.margin-right.px]="20">Save</button>
+            <button
+                class="btn btn-primary"
+                [style.margin-right.px]="20"
+            >
+                Save
+            </button>
             <button
                 type="button"
                 (click)="onDelete()"
@@ -99,28 +104,21 @@
             >
                 Delete
             </button>
-            <button class="btn btn-primary" [style.margin-left.px]="20" (click)="onCancel()">Cancel</button>
-            
+            <button
+                class="btn btn-primary"
+                [style.margin-left.px]="20"
+                (click)="onCancel()"
+            >
+                Cancel
+            </button>
+
         </form>
     </div>
 
     <div class="col-md-6">
-        <div
-            *ngIf="currentProduct.title" class="card"
-            style="width: 20rem;"
-        >
-            <img
-                class="card-img-top"
-                [src]="currentProduct.imageUrl"
-                *ngIf="currentProduct.imageUrl"
-            >
-            <div class="card-body">
-                <h4 class="card-title">{{currentProduct.title }}</h4>
-                <p class="card-text">
-                    {{currentProduct.price | currency:'AUD':true }}
-                </p>
-            </div>
-
-        </div>
+        <product-card
+            [product]="currentProduct"
+            [showButtons]="false"
+        ></product-card>
     </div>
 </div>
