@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
 import { ProductService } from '../shared/services/product.service';
-import { CategoryService } from '../shared/services/category.service';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../shared/models/product.model';
 
 import 'rxjs/add/operator/switchMap';
-import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
   selector: 'products',
@@ -15,11 +13,9 @@ import { routerNgProbeToken } from '@angular/router/src/router_module';
 export class ProductsComponent {
   products: Product[] = [];
   filteredProducts: Product[] = [];
-  categories$;
   selectedCategory: string = "";
 
   constructor(private productService: ProductService,
-    private categoryService: CategoryService,
     private activatedRoute: ActivatedRoute) {
 
     // Get all the products from Db and assign to this.products
@@ -31,17 +27,16 @@ export class ProductsComponent {
         return activatedRoute.queryParamMap;
       })
       .subscribe(
-          params => {
-            this.selectedCategory = params.get('category');
+        params => {
+          this.selectedCategory = params.get('category');
 
-        // Filter the products array based on the selected category
-        // If no category selected, just return the original products array
-        this.filteredProducts =
-              (this.selectedCategory)
-                ? this.products.filter(p => p.category === this.selectedCategory)
-                : this.products;
-          });
-      
-    this.categories$ = this.categoryService.getCategories();
+          // Filter the products array based on the selected category
+          // If no category selected, just return the original products array
+          this.filteredProducts =
+            (this.selectedCategory)
+              ? this.products.filter(p => p.category === this.selectedCategory)
+              : this.products;
+        });
+
   }
 }

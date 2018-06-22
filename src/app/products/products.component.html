@@ -1,47 +1,45 @@
 <div class="row">
 
-  <!-- Categories section: spans up to 3 column width -->
-  <div class="col-3">
-    <div class="list-group">
-      <a 
-      class="list-group-item list-group-item-action"
-      routerLink="/" 
-      [class.active]="selectedCategory===''"
-      >
-      All categories</a>
-      <a *ngFor="let c of categories$ | async" 
-        [queryParams]="{category:c.key}" 
-        class="list-group-item list-group-item-action"
-        routerLink="/" 
-        [class.active]="selectedCategory === c.key"
-        >
-        {{ c.payload.val().name }}
-      </a>
+    <!-- Categories section: spans up to 3 column width -->
+    <div class="col-3">
+        <product-filter [selectedCategory]="selectedCategory"></product-filter>
     </div>
-  </div>
 
-  <!-- Products section : remaining 9 col width -->
-  <div class="col-9">
-    <!-- Bootstrap component : Grid - Equal-width multi-row -->
-    <div class="row">
-      <ng-container *ngFor="let product of filteredProducts; let i = index">
-        <div class="col">
-          <div class="card" style="width: 15rem;">
-            <img class="card-img-top" [src]="product.imageUrl" alt="Card image cap">
-            <div class="card-body">
-              <h4 class="card-title">{{ product.title }}</h4>
-              <p class="card-text">
-                {{ product.price | currency:'USD':true }}
-              </p>
-              <a href="#" class="btn btn-primary">
-                Add to Cart
-              </a>
-            </div>
-          </div>
+    <!-- Products section : remaining 9 col width -->
+    <div class="col-9">
+        <!-- Bootstrap component : Grid - Equal-width multi-row -->
+        <div class="row">
+            <ng-container *ngFor="let product of filteredProducts; let i = index">
+                <div class="col">
+                    <div
+                        class="card"
+                        style="width: 15rem;"
+                    >
+                        <img
+                            class="card-img-top"
+                            [src]="product.imageUrl"
+                            alt="Card image cap"
+                        >
+                        <div class="card-body">
+                            <h4 class="card-title">{{ product.title }}</h4>
+                            <p class="card-text">
+                                {{ product.price | currency:'USD':true }}
+                            </p>
+                            <a
+                                href="#"
+                                class="btn btn-primary"
+                            >
+                                Add to Cart
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- line break added after every 2 items -->
+                <div
+                    *ngIf="(i + 1) % 2 === 0"
+                    class="w-100"
+                ></div>
+            </ng-container>
         </div>
-        <!-- line break added after every 2 items -->
-        <div *ngIf="(i + 1) % 2 === 0" class="w-100"></div>
-      </ng-container>
     </div>
-  </div>
 </div>
