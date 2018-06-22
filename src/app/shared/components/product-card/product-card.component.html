@@ -7,8 +7,10 @@
     </p>
   </div>
   <div class="card-footer">
-    <a *ngIf="showButtons" href="#" class="btn btn-primary btn-block">
+    <button *ngIf="showButtons" 
+    class="btn btn-primary btn-block"
+    (click)="onAddToCart(product)">
       Add to Cart
-    </a>
+    </button>
   </div>
 </div>
