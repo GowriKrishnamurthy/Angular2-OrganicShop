@@ -20,7 +20,6 @@ export class ProductsComponent {
 
     // Get all the products from Db and assign to this.products
     this.productService.getAllProducts()
-      .valueChanges()
       .switchMap((products: any[]) => {
         this.products = products;
         // Get the category selected from the active route's query param
@@ -40,3 +39,4 @@ export class ProductsComponent {
 
   }
 }
+

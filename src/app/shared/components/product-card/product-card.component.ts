@@ -13,26 +13,7 @@ export class ProductCardComponent  {
   
   constructor(private cartService:ShoppingCartService) { }
 
-  onAddToCart(product:Product){
-    
-    let cartId=localStorage.getItem('cartId');
-    // Check  if the cart iD is present. if not, create a new one and save it in local storage
-    // And start adding selected products to shopping cart
-    if(!cartId)
-    {
-      // returns a promise
-      this.cartService.createCartId()
-      .then(
-        result=>{
-          // Store the id of the newly created node in the local storage
-          localStorage.setItem('cartId',result.key);
-
-          // Add product to the newly created cart
-        });
-    }
-    // Add product to the existing cart
-    else{
-
-    }
-  }
+  onAddToCart(){
+    this.cartService.addToCart(this.product);
+  } 
 }

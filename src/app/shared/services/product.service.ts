@@ -16,9 +16,15 @@ export class ProductService {
 
   getAllProducts() {
     // Get all products from the firebase Db
-    return this.db.list('/products/');
+    return this.db.list('/products').snapshotChanges()
+      .pipe(map(action => {
+        return action.map(item => {
+          const key = item.payload.key;
+          const data = { key, ...item.payload.val() };
+          return data;
+        });
+      }));
   }
-
   getProductById(productId) {
     // Get all products from the firebase Db based on a product ID
     return this.db.object('/products/' + productId);
