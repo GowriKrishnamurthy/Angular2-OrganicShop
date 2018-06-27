@@ -16,13 +16,15 @@ export class ShoppingCartService {
     });
   }
 
-  private getCart(cartId: string) {
+  async getCart() {
+    let cartId= await this.getOrCreateCartID();
+    
     // Create a new shopping cart id in firebase db under /shopping-carts
     return this.db.object('/shopping-carts/' + cartId);
   }
 
   // To call the async method like sync methods.
-  private async getOrCreateCartID() {
+  private async getOrCreateCartID(): Promise<string>  {
     let cartId = localStorage.getItem('cartId');
 
     // Check  if the cart iD is present. if not, create a new one and save it in local storage
@@ -40,6 +42,7 @@ export class ShoppingCartService {
     return this.db.object('/shopping-carts/' + cartID + '/items/' + productID);
   }
 
+  
   /*
   async addToCart(product: Product) {
     const cartId = await this.getOrCreateCartID();
@@ -65,7 +68,7 @@ export class ShoppingCartService {
   const cartId = await this.getOrCreateCartID();
   const item$ = this.getItem(cartId, product.key);
   item$.snapshotChanges().take(1).subscribe(item => {
-      item$.update({ product: product, quantity: (item.payload.val().quantity  || 0 ) + 1 });
+      item$.update({ product: product, quantity: (item['quantity']  || 0 ) + 1 });
   });
 }
 }

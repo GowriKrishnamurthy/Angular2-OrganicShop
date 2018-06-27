@@ -27,16 +27,6 @@ export class AdminProductsComponent implements OnDestroy {
   // Subscription added to listen to any changes in the products list  in any other page
   constructor(private productService: ProductService) {
     this.subscription = this.productService.getAllProducts()
-      .snapshotChanges()
-      .pipe(map(actions => {
-        const newActions = [];
-        actions.forEach(action => {
-          const $key = action.key;
-          const data = { $key, ...action.payload.val() };
-          newActions.push(data);
-        });
-        return newActions;
-      }))
       .subscribe((products: any[]) => {
         this.products = products;
         this.initializeTable(products);

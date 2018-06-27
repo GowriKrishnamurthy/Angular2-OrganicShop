@@ -7,13 +7,21 @@ import { ShoppingCartService } from '../../../shared/services/shopping-cart.serv
   templateUrl: './product-card.component.html',
   styleUrls: ['./product-card.component.css']
 })
-export class ProductCardComponent  {
-  @Input('product') product:Product;
-  @Input('showButtons') showButtons:boolean=false;
-  
-  constructor(private cartService:ShoppingCartService) { }
+export class ProductCardComponent {
+  @Input('product') product: Product;
+  @Input('showButtons') showButtons: boolean = false;
+  @Input('shoppingCart') shoppingCart;
 
-  onAddToCart(){
+  constructor(private cartService: ShoppingCartService) { }
+
+  onAddToCart() {
     this.cartService.addToCart(this.product);
-  } 
+  }
+  
+  getQuantity() {
+    if (!this.shoppingCart) return 0;
+
+    let item = this.shoppingCart.items[this.product.key];
+    return item ? item['quantity'] : 0;
+  }
 }

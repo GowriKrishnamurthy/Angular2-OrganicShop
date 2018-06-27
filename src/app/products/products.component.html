@@ -11,7 +11,7 @@
         <div class="row">
             <ng-container *ngFor="let product of filteredProducts; let i = index">
                 <div class="col">
-                  <product-card [product]="product" [showButtons]="true"></product-card>
+                  <product-card [product]="product" [shoppingCart]="cart" [showButtons]="true"></product-card>
                 </div>
                 <!-- line break added after every 2 items -->
                 <div
