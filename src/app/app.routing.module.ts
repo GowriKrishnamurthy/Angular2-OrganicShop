@@ -19,7 +19,6 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
 const appRoutes: Routes = [
     // Routes acccessible to all including anonymous users
     { path: '', component: ProductsComponent },
-    { path: 'products', component: ProductsComponent },
     { path: 'shopping-cart', component: ShoppingCartComponent },
     { path: 'login', component: LoginComponent },
     { path: 'error', component: ErrorComponent, data: { errorMessage: 'Permission denied!' } },
